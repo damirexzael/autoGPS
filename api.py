@@ -4,20 +4,27 @@
 from flask import Flask, jsonify, request
 from analytics.libs.extract_features import extract_features
 from analytics.libs.predict_model import predict_model
+from analytics.libs.check_inputs import check_inputs
 
 app = Flask(__name__)
 
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
-    print(request.form.get('asd'))
+    """
+    Example test http://127.0.0.1:5000/predict?VIN=test&price=123
+    :return:
+    """
+    if not check_inputs(**request.values):
+        raise ValueError("Wrong inputs")
+    features = extract_features(**request.values)
+    pred = predict_model(**features)
     result = {
-        "saludo": "Hello World!"
+        **features,
+        "pred": pred
     }
     return jsonify(result)
 
 
 if __name__ == '__main__':
-    print(extract_features(vin='adas'))
-    print(predict_model(unoo='a', dos='b'))
     app.run(debug=True)

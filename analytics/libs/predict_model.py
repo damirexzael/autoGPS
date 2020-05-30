@@ -1,3 +1,3 @@
 def predict_model(**kwargs):
-    print("input", kwargs)
+    print("predict_model", kwargs)
     return 0.5
