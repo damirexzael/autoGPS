@@ -1,19 +1,23 @@
-# API
-#  response POST /predict
-#  receive price and vin
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from analytics.libs.extract_features import extract_features
 from analytics.libs.predict_model import predict_model
 from analytics.libs.check_inputs import check_inputs
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
+
+
+@app.route('/', methods=['GET'])
+def index():
+    """
+    Example http://127.0.0.1:5000/
+    """
+    return render_template("index.html")
 
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
     """
-    Example test http://127.0.0.1:5000/predict?VIN=test&price=123
-    :return:
+    Example http://127.0.0.1:5000/predict?VIN=test&price=123
     """
     if not check_inputs(**request.values):
         raise ValueError("Wrong inputs")
