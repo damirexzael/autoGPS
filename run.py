@@ -11,7 +11,7 @@ def index():
     """
     Example http://127.0.0.1:5000/
     """
-    return render_template("index.html")
+    return render_template("index.html", name='My name')
 
 
 @app.route('/predict', methods=['GET', 'POST'])
