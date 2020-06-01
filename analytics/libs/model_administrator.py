@@ -28,17 +28,12 @@ def store_model(db):
     dbfile.close()
 
 
-def load_model():
+def extract_model():
     # for reading also binary mode is important
     dbfile = open(FILEPATH, 'rb')
     db = pickle.load(dbfile)
     dbfile.close()
-    return db
-
-
-def extract_model():
-    params = load_model()
-    model = Example(**params)
+    model = Example(**db)
     return model
 
 
@@ -47,7 +42,7 @@ model_ready = extract_model()
 if __name__ == '__main__':
     parameters = {
         "dad": 123,
-        "qwe": 338
+        "qwe": 336
     }
     store_model(parameters)
     model_ready = extract_model()
