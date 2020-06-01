@@ -1,16 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Index</title>
-</head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-<body>
-  <h1 style="color: blue">Index "{{ name }}"</h1>
-  <p>This is an HTML file served up by Flask</p>
-</body>
-
+    <title>autoPGS</title>
+  </head>
+  <body>
+  <div class="row">
+    {% if method == 'POST' %}
+    <div class="col-md-6 offset-md-3">
+      <h1>Results</h1>
+      <h4>Predict: {{predict}}</h4>
+    </div>
+    {% endif %}
+    <div class="col-md-6 offset-md-3">
+        <h1>AutoPGS: Evalúa tu Auto</h1>
+        <form action="/" method="POST">
+          <div class="form-group">
+            <label for="autoVIN">VIN code</label>
+            <input type="text" name="vin" value="{{vin}}" class="form-control" id="autoVIN" aria-describedby="autoVINhelp" placeholder="Enter VIN car" required>
+            <small id="autoVINhelp" class="form-text text-muted">Valid code with 14 characters.</small>
+          </div>
+          <div class="form-group">
+            <label for="price">Price</label>
+            <input type="text" name="price" value="{{price}}" class="form-control" id="price" aria-describedby="pricehelp" placeholder="Enter price" required>
+            <small id="pricehelp" class="form-text text-muted">Car price in USD.</small>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+  </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  </body>
 </html>

@@ -1,33 +1,31 @@
 from flask import Flask, jsonify, request, render_template
-from analytics.libs.extract_features import extract_features
-from analytics.libs.predict_model import predict_model
-from analytics.libs.check_inputs import check_inputs
+from analytics.libs.predict_form import predict_form
 
 app = Flask(__name__, template_folder='templates')
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     """
     Example http://127.0.0.1:5000/
     """
-    return render_template("index.html", name='My name')
+    output = dict()
+    if request.method == 'POST':
+        output = predict_form(request.values)
+    return render_template(
+        "index.html",
+        predict=output.get('pred'),
+        vin=request.values.get('vin', ''),
+        price=request.values.get('price', ''),
+        method=request.method
+    )
 
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
-    """
-    Example http://127.0.0.1:5000/predict?VIN=test&price=123
-    """
-    if not check_inputs(**request.values):
-        raise ValueError("Wrong inputs")
-    features = extract_features(**request.values)
-    pred = predict_model(**features)
-    result = {
-        **features,
-        "pred": pred
-    }
-    return jsonify(result)
+    """ Example: http://127.0.0.1:5000/predict?asd=asd&a1=qwe123 """
+    output = predict_form(request.values)
+    return jsonify(output)
 
 
 if __name__ == '__main__':
