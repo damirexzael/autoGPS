@@ -5,9 +5,9 @@ def extract_features(**kwargs):
     :return:
     """
     print("extract_features", kwargs)
-    return {
-        "feature1": 1,
-        "feature2": 1,
-        "feature3": 1,
-        "feature4": 1,
+    values = {
+        'year': int(kwargs.get('year', 2011)),
+        'model': kwargs.get('model', 'Escape4WD')
     }
+    print("values", values)
+    return values

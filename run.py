@@ -11,12 +11,14 @@ def index():
     """
     output = dict()
     if request.method == 'POST':
-        output = predict_form(request.values)
+        output = predict_form(**request.values)
     return render_template(
         "index.html",
         predict=output.get('pred'),
         vin=request.values.get('vin', ''),
         price=request.values.get('price', ''),
+        year=request.values.get('year', ''),
+        model=request.values.get('model', ''),
         method=request.method
     )
 
