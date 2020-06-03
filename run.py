@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, request, render_template
-from analytics.libs.predict_form import predict_form
+from analytics.libs import MachineLearning
 
 app = Flask(__name__, template_folder='templates')
+ml = MachineLearning('prod_pipeline')
+ml.load_model()
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -11,23 +13,21 @@ def index():
     """
     output = dict()
     if request.method == 'POST':
-        output = predict_form(**request.values)
+        output = ml.predict_dict(dict(request.values))
     return render_template(
         "index.html",
-        predict=output.get('pred'),
-        vin=request.values.get('vin', ''),
-        price=request.values.get('price', ''),
-        year=request.values.get('year', ''),
-        model=request.values.get('model', ''),
-        method=request.method
+        method=request.method,
+        predict=output,
+        features=ml.get_features(),
+        values=request.values
     )
 
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
     """ Example: http://127.0.0.1:5000/predict?asd=asd&a1=qwe123 """
-    output = predict_form(request.values)
-    return jsonify(output)
+    # output = predict_form(request.values)
+    return jsonify(3.6)
 
 
 if __name__ == '__main__':

@@ -21,26 +21,13 @@
     <div class="col-md-6 offset-md-3">
         <h1>AutoPGS: Evalúa tu Auto</h1>
         <form action="/" method="POST">
+          {% for key in features %}
           <div class="form-group">
-            <label for="autoVIN">VIN code</label>
-            <input type="text" name="vin" value="{{vin}}" class="form-control" id="autoVIN" aria-describedby="autoVINhelp" placeholder="Enter VIN car" required>
-            <small id="autoVINhelp" class="form-text text-muted">Valid code with 14 characters.</small>
+            <label for="{{key}}">{{key}}</label>
+            <input type="text" name="{{key}}" value="{{values.get(key, '')}}" class="form-control" id="{{key}}" aria-describedby="{{key}}help" placeholder="Enter {{key}}" required>
+            <small id="{{key}}help" class="form-text text-muted">Car price in USD.</small>
           </div>
-          <div class="form-group">
-            <label for="price">Price</label>
-            <input type="text" name="price" value="{{price}}" class="form-control" id="price" aria-describedby="pricehelp" placeholder="Enter price" required>
-            <small id="pricehelp" class="form-text text-muted">Car price in USD.</small>
-          </div>
-          <div class="form-group">
-            <label for="year">Year</label>
-            <input type="text" name="year" value="{{year}}" class="form-control" id="year" aria-describedby="yearhelp" placeholder="Enter year" required>
-            <small id="yearhelp" class="form-text text-muted">Car price in USD.</small>
-          </div>
-          <div class="form-group">
-            <label for="model">Model</label>
-            <input type="text" name="model" value="{{model}}" class="form-control" id="model" aria-describedby="modelhelp" placeholder="Enter model" required>
-            <small id="modelhelp" class="form-text text-muted">Car price in USD.</small>
-          </div>
+          {% endfor %}
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

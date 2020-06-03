@@ -43,8 +43,8 @@ def get_pipeline():
             'Model'
         ]),
         ('scale', StandardScaler(), [
-            'Year',
-            # 'Mileage'
+            # 'Year',
+            'Mileage'
         ])
     ], remainder='passthrough')
 
@@ -70,8 +70,8 @@ def train_model():
 
     # split dataset
     X = df[[
-        'Year',
-        # 'Mileage',
+        # 'Year',
+        'Mileage',
         # 'City', 'State', 'Make',
         'Model']]
     y = df.Price
@@ -87,7 +87,7 @@ def train_model():
     return X_train, X_test, y_train, y_test, reg.get_params()
 
 
-model_ready = extract_model()
+# model_ready = extract_model()
 
 if __name__ == '__main__':
     # dbfile = open(FILEPATH, 'rb')
@@ -96,9 +96,10 @@ if __name__ == '__main__':
     # print(db)
     #
     # X_train, X_test, y_train, y_test, params = train_model()
+    # print(pd.concat([X_test, y_test], axis=1, sort=False).head())
     #
     # print(X_test.head())
-    # # # testing results
+    # # testing results
     # lr = get_pipeline()
     # lr.set_params(**params)
     # prediction = lr.predict(X_test)
@@ -108,9 +109,16 @@ if __name__ == '__main__':
     #
     # store_model(params)
 
-    df = DataFrame(data=[[2011, 'Escape4WD']], columns=['Year', 'Model'])
+    # test data
+    # 809762    65498    4Runner4x2  27995
+    # 204915    33991     ChargerSE  19745
+    # 785001    19650  TacomaAccess  19992
+    # 212356    15811       DartSXT  16995
+    # 422420     4622       PilotEX  31995
+    df = DataFrame(data=[[19650, 'TacomaAccess']], columns=['Mileage', 'Model'])
     print(df.head())
-    model_ready.predict(df)
+    a = model_ready.predict(df)
+    print(a)
 
 
 
