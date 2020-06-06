@@ -1,3 +1,5 @@
+joblib
+pandas
 sklearn
 wtforms
 click==7.1.2

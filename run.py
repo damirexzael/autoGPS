@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, render_template
 from analytics.libs import MachineLearning
 
 app = Flask(__name__, template_folder='templates')
-ml = MachineLearning('prod_pipeline')
+ml = MachineLearning('test_pipeline')
 ml.load_model()
 
 
@@ -18,7 +18,7 @@ def index():
         "index.html",
         method=request.method,
         predict=output,
-        features=ml.get_features(),
+        features=ml.features,
         values=request.values
     )
 
